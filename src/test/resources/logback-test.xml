@@ -1,0 +1,39 @@
+<configuration>
+
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+      <providers>
+        <logLevel>
+          <fieldName>SeverityText</fieldName>
+        </logLevel>
+        <loggerName>
+          <fieldName>InstrumentationScope</fieldName>
+        </loggerName>
+        <message>
+          <fieldName>Body</fieldName>
+        </message>
+        <provider class="com.ndh.logging.provider.FakeTimestampNanoProvider"/>
+        <nestedField>
+          <fieldName>Attributes</fieldName>
+          <providers>
+            <throwableMessage>
+              <fieldName>exception.message</fieldName>
+            </throwableMessage>
+            <stackTrace>
+              <fieldName>exception.stacktrace</fieldName>
+            </stackTrace>
+            <threadName>
+              <fieldName>thread.name</fieldName>
+            </threadName>
+            <arguments/>
+          </providers>
+        </nestedField>
+      </providers>
+    </encoder>
+  </appender>
+
+  <root level="DEBUG">
+    <appender-ref ref="STDOUT"/>
+  </root>
+
+</configuration>

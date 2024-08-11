@@ -1,0 +1,19 @@
+pluginManagement {
+  repositories {
+    mavenCentral()
+  }
+}
+
+plugins {
+  id('org.ajoberstar.reckon.settings') version "${reckon_version}"
+}
+
+reckon {
+  defaultInferredScope = 'patch'
+  stages 'dev', 'final'
+  scopeCalc = calcScopeFromProp().or(calcScopeFromCommitMessages())
+  stageCalc = calcStageFromProp()
+}
+
+rootProject.name='log-encoder-example'
+

@@ -1,0 +1,46 @@
+plugins {
+  id 'java-library'
+  id 'groovy'
+  id 'maven-publish'
+}
+
+java {
+  sourceCompatibility = JavaVersion.VERSION_17
+  targetCompatibility = JavaVersion.VERSION_17
+}
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  implementation group: 'ch.qos.logback', name: 'logback-classic', version: logback_version
+  implementation group: 'ch.qos.logback', name: 'logback-core', version: logback_version
+  implementation group: 'net.logstash.logback', name: 'logstash-logback-encoder', version: '7.4'
+  implementation group: 'org.slf4j', name: 'slf4j-api', version: slf4j_version
+  testImplementation group: 'org.spockframework', name: 'spock-core', version: spock_version
+  testImplementation group: 'org.apache.groovy', name: 'groovy-all', version: groovy_version
+  testImplementation group: 'io.github.joke', name: 'spock-outputcapture', version: '3.0.0'
+}
+
+publishing {
+  publications {
+    mavenJava(MavenPublication) {
+      from components.java
+    }
+  }
+}
+
+jar {
+  enabled = true
+}
+
+test {
+  useJUnitPlatform()
+}
+
+reckonTagCreate.dependsOn 'build'
+task('reckonVersion') {
+  doLast { project.version.toString() }
+}
+
