@@ -15,5 +15,5 @@ reckon {
   stageCalc = calcStageFromProp()
 }
 
-rootProject.name='log-encoder-example'
+rootProject.name='logstash-example'
 
